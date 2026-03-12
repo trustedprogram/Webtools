@@ -5,7 +5,96 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SVG Crop Studio</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- ✅ GOOGLE ADSENSE: Replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
 <style>
+  /* ── Ad Styles ── */
+  .ad-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fc;
+    border: 1px dashed #dde1ea;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ad-label {
+    position: absolute;
+    top: 3px; left: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: #c0c4ce;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Header leaderboard ad */
+  .ad-header {
+    width: 100%;
+    max-width: 728px;
+    height: 90px;
+    margin: 0 auto;
+  }
+
+  /* Sidebar rectangle ad */
+  .ad-sidebar {
+    width: 280px;
+    height: 250px;
+    margin: 0 auto;
+  }
+
+  /* Bottom sticky ad */
+  .ad-sticky {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: rgba(255,255,255,0.97);
+    border-top: 1px solid #dde1ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  }
+
+  .ad-sticky-inner {
+    width: 100%;
+    max-width: 728px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ad-close {
+    position: absolute;
+    right: 8px; top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid #dde1ea;
+    border-radius: 4px;
+    color: #8b92a5;
+    font-size: 11px;
+    padding: 2px 7px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.15s;
+  }
+
+  .ad-close:hover { background: #f0f2f5; color: #1a1d26; }
+
+  /* Push content up when sticky ad is showing */
+  body.has-sticky-ad main {
+    padding-bottom: 60px;
+  }
+
   :root {
     --bg: #f4f6f9;
     --surface: #ffffff;
@@ -655,6 +744,18 @@
       <div class="logo-icon">✂️</div>
       <div class="logo-text">SVG<span>Crop</span></div>
     </div>
+
+    <!-- ✅ AD SLOT 1: Header Leaderboard (728x90) -->
+    <!-- Replace data-ad-client and data-ad-slot with your AdSense values -->
+    <div class="ad-container ad-header">
+      <span class="ad-label">Advertisement</span>
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="1111111111"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <div class="header-badge">STUDIO v1.0</div>
   </header>
 
@@ -778,6 +879,19 @@
         <button class="btn btn-primary" id="downloadBtn" disabled>⬇ &nbsp;Export SVG</button>
       </div>
 
+      <!-- ✅ AD SLOT 2: Sidebar Rectangle (300x250) -->
+      <!-- Replace data-ad-client and data-ad-slot with your AdSense values -->
+      <div class="panel" style="padding:16px">
+        <div class="ad-container ad-sidebar">
+          <span class="ad-label">Advertisement</span>
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:280px;height:250px"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="2222222222"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+
     </aside>
 
     <!-- CANVAS -->
@@ -830,6 +944,20 @@
 
 <!-- Toast -->
 <div class="toast" id="toast">✓ &nbsp;<span id="toastMsg">Done!</span></div>
+
+<!-- ✅ AD SLOT 3: Sticky Bottom Banner (728x60) -->
+<!-- Replace data-ad-client and data-ad-slot with your AdSense values -->
+<div class="ad-sticky" id="stickyAd">
+  <div class="ad-sticky-inner">
+    <span class="ad-label" style="position:absolute;left:8px;top:4px">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:60px"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="3333333333"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <button class="ad-close" onclick="document.getElementById('stickyAd').style.display='none';document.body.classList.remove('has-sticky-ad')">✕ close</button>
+  </div>
+</div>
 
 <script>
 // State
@@ -1296,6 +1424,9 @@ document.addEventListener('keydown', e => {
   e.preventDefault();
   updateCropUI();
 });
+
+// ── Sticky Ad ─────────────────────────────────────────────────────────────
+document.body.classList.add('has-sticky-ad');
 
 // ── Wheel Zoom ────────────────────────────────────────────────────────────
 $('canvasContainer').addEventListener('wheel', e => {
